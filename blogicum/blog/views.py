@@ -136,20 +136,6 @@ def delete_post(request, post_id):
     return render(request, 'blog/delete.html', {'post': post})
 
 
-@login_required
-def add_comment(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    form = CommentForm(request.POST)
-
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.author = request.user
-        comment.post = post
-        comment.save()
-
-    return redirect('post_detail', post_id=post_id)
-
-
 def profile(request, username):
     user = get_object_or_404(User, username=username)
 
