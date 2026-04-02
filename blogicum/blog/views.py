@@ -1,4 +1,4 @@
-from datetime import date
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,7 @@ User = get_user_model()
 
 
 def index(request):
-    today = date.today()
+    today = timezone.now()
     posts = (
         Post.objects.select_related('category')
         .filter(
@@ -34,7 +34,7 @@ def index(request):
 
 
 def category_posts(request, category_slug):
-    today = date.today()
+    today = timezone.now()
     category = get_object_or_404(
         Category,
         slug=category_slug,
@@ -66,7 +66,7 @@ def category_posts(request, category_slug):
 
 
 def post_detail(request, id):
-    today = date.today()
+    today = timezone.now()
 
     post = get_object_or_404(Post, id=id)
 
